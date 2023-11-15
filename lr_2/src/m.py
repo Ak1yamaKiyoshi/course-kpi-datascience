@@ -61,7 +61,7 @@ def restore_measurements(data, anomalies):
     - restored_data: numpy array, виміри після відновлення аномалій методом найменших квадратів
     """
     restored_data = np.copy(data)
-    restored_data[anomalies] = np.nan  # Позначте аномалії для відновлення
+    restored_data[anomalies] = np.nan
     valid_indices = np.where(~np.isnan(restored_data))[0]
     restored_data[anomalies] = np.polyval(np.polyfit(valid_indices, restored_data[valid_indices], 2), anomalies)
     return restored_data
