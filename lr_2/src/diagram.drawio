@@ -1,0 +1,58 @@
+<mxfile host="app.diagrams.net" modified="2023-11-14T21:21:15.731Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36" etag="H-U69C1ML9jUNHbFNPEd" version="22.1.1" type="device">
+  <diagram name="Сторінка-1" id="2WWuBG-Kuc8N1jl_AmLk">
+    <mxGraphModel dx="225" dy="376" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="uGJsmnGUjCMK1wd9d8d_-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;sketch=1;curveFitting=1;jiggle=2;" edge="1" parent="1" source="uGJsmnGUjCMK1wd9d8d_-2" target="uGJsmnGUjCMK1wd9d8d_-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="uGJsmnGUjCMK1wd9d8d_-2" value="monte_carlo_analysis(data, anomalies)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;sketch=1;curveFitting=1;jiggle=2;" vertex="1" parent="1">
+          <mxGeometry x="254" y="70" width="160" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="uGJsmnGUjCMK1wd9d8d_-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;sketch=1;curveFitting=1;jiggle=2;" edge="1" parent="1" source="uGJsmnGUjCMK1wd9d8d_-4" target="uGJsmnGUjCMK1wd9d8d_-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="uGJsmnGUjCMK1wd9d8d_-4" value="_ in range&lt;br&gt;(n_iterations)" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#fff2cc;strokeColor=#d6b656;sketch=1;curveFitting=1;jiggle=2;" vertex="1" parent="1">
+          <mxGeometry x="281" y="120" width="106" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="uGJsmnGUjCMK1wd9d8d_-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;sketch=1;curveFitting=1;jiggle=2;" edge="1" parent="1" source="uGJsmnGUjCMK1wd9d8d_-5" target="uGJsmnGUjCMK1wd9d8d_-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="uGJsmnGUjCMK1wd9d8d_-5" value="Генерація шуму" style="rounded=0;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;" vertex="1" parent="1">
+          <mxGeometry x="284.5" y="180" width="99" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="uGJsmnGUjCMK1wd9d8d_-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;sketch=1;curveFitting=1;jiggle=2;" edge="1" parent="1" source="uGJsmnGUjCMK1wd9d8d_-7" target="uGJsmnGUjCMK1wd9d8d_-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="uGJsmnGUjCMK1wd9d8d_-7" value="Розрахунок помилки у шумі" style="rounded=0;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;" vertex="1" parent="1">
+          <mxGeometry x="284.5" y="220" width="99" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="uGJsmnGUjCMK1wd9d8d_-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;sketch=1;curveFitting=1;jiggle=2;" edge="1" parent="1" source="uGJsmnGUjCMK1wd9d8d_-9" target="uGJsmnGUjCMK1wd9d8d_-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="uGJsmnGUjCMK1wd9d8d_-9" value="Пошук аномалій" style="rounded=0;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;" vertex="1" parent="1">
+          <mxGeometry x="284.5" y="260" width="99" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="uGJsmnGUjCMK1wd9d8d_-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;sketch=1;curveFitting=1;jiggle=2;" edge="1" parent="1" source="uGJsmnGUjCMK1wd9d8d_-11" target="uGJsmnGUjCMK1wd9d8d_-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="uGJsmnGUjCMK1wd9d8d_-11" value="Злагодження" style="rounded=0;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;" vertex="1" parent="1">
+          <mxGeometry x="284.5" y="300" width="99" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="uGJsmnGUjCMK1wd9d8d_-15" value="return errors" style="html=1;dashed=0;whiteSpace=wrap;shape=mxgraph.dfd.start;fillColor=#dae8fc;strokeColor=#6c8ebf;sketch=1;curveFitting=1;jiggle=2;" vertex="1" parent="1">
+          <mxGeometry x="294" y="370" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="uGJsmnGUjCMK1wd9d8d_-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0.5;entryDx=0;entryDy=-15;entryPerimeter=0;sketch=1;curveFitting=1;jiggle=2;" edge="1" parent="1" source="uGJsmnGUjCMK1wd9d8d_-4" target="uGJsmnGUjCMK1wd9d8d_-15">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="407" y="145" />
+              <mxPoint x="407" y="360" />
+              <mxPoint x="334" y="360" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
