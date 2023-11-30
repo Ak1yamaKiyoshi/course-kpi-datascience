@@ -1,0 +1,5 @@
+id,description,time,distance,price
+0,176 bus,18,4km,8
+1,31 bus,41,6km,8
+2,18 bus -> 720bus,37,5km,16
+3,taxi,10,4km,190
