@@ -122,8 +122,6 @@ class MultiAgentSearchAgent(Agent):
     self.evaluationFunction = util.lookup(evalFn, globals())
     self.depth = int(depth)
 
-
-
 ######################################################################################
 # Problem 1b: implementing minimax
 
@@ -147,79 +145,107 @@ class AlphaBetaAgent(MultiAgentSearchAgent):
 ######################################################################################
 # Problem 3b: implementing expectimax
 
+
 class ExpectimaxAgent(MultiAgentSearchAgent):
-  """
-    Your expectimax agent (problem 3)
-  """
-
-  def getAction(self, gameState):
     """
-      Returns the expectimax action using self.depth and self.evaluationFunction
-
-      All ghosts should be modeled as choosing uniformly at random from their
-      legal moves.
+    Агент, що реалізує алгоритм Expectimax для випадкових привидів.
     """
+    def expectedValue(self, gameState, agentIndex, depth):
+        """
+        Обчислює очікувану корисність для привида, який діє випадково.
+        """
+        actions = gameState.getLegalActions(agentIndex)
+        successors = [gameState.generateSuccessor(agentIndex, action) for action in actions]
+        values = []
+        for successor in successors:
+            if successor.isWin() or successor.isLose() or depth == self.depth:
+                values.append(self.evaluationFunction(successor))
+            else:
+                nextAgent = (agentIndex + 1) % gameState.getNumAgents()
+                if nextAgent == 0:
+                    values.append(self.maxValue(successor, nextAgent, depth + 1))
+                else:
+                    values.append(self.expectedValue(successor, nextAgent, depth))
 
-    # BEGIN_YOUR_CODE (our solution is 25 lines of code, but don't worry if you deviate from this)
-    # raise Exception("Not implemented yet")
-    # Higher level legal movements
-    legalMovesG = gameState.getLegalActions()
-
-    # Return (minimax value of state, optimal action) 
-    def recurse(gameState, gameDepth, agentIndex):
-      # print'\nlegalMoves: ', legalMoves
-      # Collect legal moves and successor states
-      legalMoves = gameState.getLegalActions(agentIndex)
-      # If the game ends either on win state or lose state or no legal movements, return the final score
-      if gameState.isWin() or gameState.isLose() or len(legalMoves) == 0:
-          # print '------------------- Game Ends -------------------'
-          return gameState.getScore()
-
-      # Depth equals to 0, call evaluation function 
-      elif gameDepth == 0:
-          # Choose one of the best actions
-          scores = self.evaluationFunction(gameState)
-          return scores
-
-      else: 
-        # Update depth and index based on current agentIndex
-        if agentIndex == (gameState.getNumAgents() - 1):
-            newDepth = gameDepth - 1
-            newAgentIndex = 0
-        # if the agent is pacman, return the maximum score
+        if not values:
+            # Немає легальних ходів, повертаємо значення за замовчуванням або викликаємо функцію оцінки
+            return self.evaluationFunction(gameState)
         else:
-            newDepth = gameDepth
-            newAgentIndex = agentIndex + 1
-        # Recurse 
-        choices = [(recurse(gameState.generateSuccessor(agentIndex, action), newDepth, newAgentIndex), action) for action in legalMoves]
-        
-        # if the agent is not pacman, return random action and average score
-        if agentIndex != 0:
-            return random.choice(choices)[0]
-        # if the agent is pacman, return the maximum score
-        else: 
-            return max(choices)[0]
-      
-    globalChoice = [(recurse(gameState.generateSuccessor(self.index, action), self.depth, self.index+1), action) for action in legalMovesG]
-    bestScore = max(globalChoice)[0]
-    bestIndices = [index for index in range(0, len(globalChoice)) if globalChoice[index][0] == bestScore]
-    chosenIndex = random.choice(bestIndices) # Pick randomly among the best
-    return legalMovesG[chosenIndex]
-    # END_YOUR_CODE
+            return sum(values) / len(values)
+
+    def getAction(self, gameState):
+        """
+        Повертає дію, визначену алгоритмом Expectimax для випадкових привидів.
+        """
+        actions = gameState.getLegalActions(0)
+        values = [self.expectedValue(gameState.generateSuccessor(0, action), 1, 1) for action in actions]
+        maxValue = max(values)
+        bestActions = [action for action, value in zip(actions, values) if value == maxValue]
+        return random.choice(bestActions)
+
+    def maxValue(self, gameState, agentIndex, depth):
+        """
+        Обчислює максимальну корисність для Pac-Man.
+        """
+        actions = gameState.getLegalActions(agentIndex)
+        if not actions:
+            return self.evaluationFunction(gameState)
+        values = [self.expectedValue(gameState.generateSuccessor(agentIndex, action), agentIndex + 1, depth) for action in actions]
+        return max(values)
 
 
 ######################################################################################
 # Problem 4a (extra credit): creating a better evaluation function
 
-def betterEvaluationFunction(currentGameState: GameState) -> float:
-  """
-    Your extreme, unstoppable evaluation function (problem 4). Note that you can't fix a seed in this function.
-  """
+def betterEvaluationFunction(currentGameState):
+    """
+    Функція оцінки, яка враховує тип агентів-привидів (випадкові або направлені)
+    та відстань до них.
+    """
+    # Отримуємо інформацію про стан гри
+    newPos = currentGameState.getPacmanPosition()
+    newFood = currentGameState.getFood()
+    newGhostStates = currentGameState.getGhostStates()
+    newScaredTimes = [ghostState.scaredTimer for ghostState in newGhostStates]
 
+    # Обчислюємо відстань до найближчої пілюлі
+    foodList = newFood.asList()
+    distanceToClosestFood = float("inf")
+    if len(foodList) > 0:
+        distanceToClosestFood = min([util.manhattanDistance(newPos, food) for food in foodList])
 
-  # BEGIN_YOUR_CODE (our solution is 13 lines of code, but don't worry if you deviate from this)
-  raise Exception("Not implemented yet")
-  # END_YOUR_CODE
+    # Обчислюємо очікувану відстань до привидів залежно від їх типу
+    randomGhostDistances = []
+    directedGhostDistances = []
+    for ghostState in newGhostStates:
+        ghostPosition = ghostState.getPosition()
+        distance = util.manhattanDistance(newPos, ghostPosition)
+        if ghostState.isRandom:
+            randomGhostDistances.append(distance)
+        else:
+            directedGhostDistances.append(distance)
 
-# Abbreviation
-better = betterEvaluationFunction
+    # Обчислюємо середню відстань до випадкових та направлених привидів
+    avgRandomGhostDistance = sum(randomGhostDistances) / max(len(randomGhostDistances), 1)
+    avgDirectedGhostDistance = sum(directedGhostDistances) / max(len(directedGhostDistances), 1)
+
+    # Обчислюємо рахунок гри
+    score = currentGameState.getScore()
+
+    # Визначаємо вагові коефіцієнти для різних факторів
+    foodWeight = 10  # Вага відстані до пілюлі
+    randomGhostWeight = -10  # Вага відстані до випадкових привидів
+    directedGhostWeight = -20  # Вага відстані до направлених привидів
+    scoreWeight = 1  # Вага рахунку гри
+
+    # Обчислюємо загальну оцінку стану гри
+    evaluation = scoreWeight * score \
+                 - foodWeight * distanceToClosestFood \
+                 - randomGhostWeight * avgRandomGhostDistance \
+                 - directedGhostWeight * avgDirectedGhostDistance
+
+    # Якщо жоден привид не є "наляканим", додаємо штраф за відстань до привидів
+    if sum(newScaredTimes) == 0:
+        evaluation -= 500 / (avgRandomGhostDistance + avgDirectedGhostDistance + 1)
+
+    return evaluation

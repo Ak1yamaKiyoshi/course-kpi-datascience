@@ -132,7 +132,30 @@ class MinimaxAgent(MultiAgentSearchAgent):
     legalMovesG = gameState.getLegalActions()
 
     def recurse(gameState, gameDepth, agentIndex):
-      pass
+      legalMoves = gameState.getLegalActions(agentIndex)
+      if gameState.isWin() or gameState.isLose() or len(legalMoves) == 0:
+          return gameState.getScore()
+      elif gameDepth == 0:
+          scores = self.evaluationFunction(gameState)
+          return scores
+      else:
+        if agentIndex == (gameState.getNumAgents() - 1):
+            newDepth = gameDepth - 1
+            newAgentIndex = 0
+        else:
+            newDepth = gameDepth
+            newAgentIndex = agentIndex + 1
+        choices = [(recurse(gameState.generateSuccessor(agentIndex, action), newDepth, newAgentIndex), action) for action in legalMoves]
+        if agentIndex != 0:
+            return min(choices)[0]
+        else:
+            return max(choices)[0]
+      
+    globalChoice = [(recurse(gameState.generateSuccessor(self.index, action), self.depth, self.index+1), action) for action in legalMovesG]
+    bestScore = max(globalChoice)[0]
+    bestIndices = [index for index in range(0, len(globalChoice)) if globalChoice[index][0] == bestScore]
+    chosenIndex = random.choice(bestIndices)
+    return legalMovesG[chosenIndex]
 
 ######################################################################################
 # Problem 2a: implementing alpha-beta
@@ -142,6 +165,7 @@ class AlphaBetaAgent(MultiAgentSearchAgent):
     legalMovesG = gameState.getLegalActions()
 
     def recurse(gameState, gameDepth, agentIndex, alpha, beta):
+      legalMoves = gameState.getLegalActions(agentIndex)
       pass
 
 ######################################################################################
@@ -163,48 +187,7 @@ class ExpectimaxAgent(MultiAgentSearchAgent):
     # BEGIN_YOUR_CODE (our solution is 25 lines of code, but don't worry if you deviate from this)
     # raise Exception("Not implemented yet")
     # Higher level legal movements
-    legalMovesG = gameState.getLegalActions()
-
-    # Return (minimax value of state, optimal action) 
-    def recurse(gameState, gameDepth, agentIndex):
-      # print'\nlegalMoves: ', legalMoves
-      # Collect legal moves and successor states
-      legalMoves = gameState.getLegalActions(agentIndex)
-      # If the game ends either on win state or lose state or no legal movements, return the final score
-      if gameState.isWin() or gameState.isLose() or len(legalMoves) == 0:
-          # print '------------------- Game Ends -------------------'
-          return gameState.getScore()
-
-      # Depth equals to 0, call evaluation function 
-      elif gameDepth == 0:
-          # Choose one of the best actions
-          scores = self.evaluationFunction(gameState)
-          return scores
-
-      else: 
-        # Update depth and index based on current agentIndex
-        if agentIndex == (gameState.getNumAgents() - 1):
-            newDepth = gameDepth - 1
-            newAgentIndex = 0
-        # if the agent is pacman, return the maximum score
-        else:
-            newDepth = gameDepth
-            newAgentIndex = agentIndex + 1
-        # Recurse 
-        choices = [(recurse(gameState.generateSuccessor(agentIndex, action), newDepth, newAgentIndex), action) for action in legalMoves]
-        
-        # if the agent is not pacman, return random action and average score
-        if agentIndex != 0:
-            return random.choice(choices)[0]
-        # if the agent is pacman, return the maximum score
-        else: 
-            return max(choices)[0]
-      
-    globalChoice = [(recurse(gameState.generateSuccessor(self.index, action), self.depth, self.index+1), action) for action in legalMovesG]
-    bestScore = max(globalChoice)[0]
-    bestIndices = [index for index in range(0, len(globalChoice)) if globalChoice[index][0] == bestScore]
-    chosenIndex = random.choice(bestIndices) # Pick randomly among the best
-    return legalMovesG[chosenIndex]
+    pass
     # END_YOUR_CODE
 
 
