@@ -2,18 +2,14 @@ import numpy as np
 import matplotlib.pyplot as plt
 import gym
 from gym.envs.toy_text import frozen_lake
-import cv2
-
-# 1. Import required libraries
+import cv2 
 import gym
 from gym.envs.toy_text import frozen_lake
-
-# 2. Create the FrozenLake environment
+ 
 env = gym.make('FrozenLake-v1', desc=None, map_name="4x4", is_slippery=True, render_mode="rgb_array")
 
-rewards_in_training = []
+rewards_in_training = [] 
 
-# 3. Define the Q-learning algorithm
 def q_learning(env, num_episodes=1000, alpha=1.0, gamma=0.8, epsilon=0.2):
     """
     Q-learning algorithm to find the optimal policy

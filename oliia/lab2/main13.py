@@ -56,39 +56,25 @@ def q_learning(env, num_episodes=1000, alpha=0.5, gamma=0.99, epsilon=0.2):
     return Q, policy
 
 
+def run():
+    global env, Q, policy
+
+    input("> Press Something to see first iteration")
+    state = env.reset()
+    state = state[0]
+    done = False
+    while not done:
+        action = policy[state]
+        state, reward, done, truncated, info = env.step(action)
+        state = state  
+        env_image = env.render()
+        
+        cv2.imshow("",cv2.cvtColor(env_image, cv2.COLOR_RGB2BGR))
+        cv2.waitKey(110)
+        print(f"State: {state}, Action: {action}, Reward: {reward}, Done: {done}, Truncated: {truncated}")
+
+
 Q, policy = q_learning(env, num_episodes=10)
-
-state = env.reset()
-state = state[0]  
-print(policy.reshape(4, 4))
-
-input("> Press Something to see first iteration")
-state = env.reset()
-state = state[0]
-done = False
-while not done:
-    action = policy[state]
-    state, reward, done, truncated, info = env.step(action)
-    state = state  
-    env_image = env.render()
-    
-    cv2.imshow("",cv2.cvtColor(env_image, cv2.COLOR_RGB2BGR))
-    cv2.waitKey(110)
-    print(f"State: {state}, Action: {action}, Reward: {reward}, Done: {done}, Truncated: {truncated}")
-
-Q, policy = q_learning(env, num_episodes=300_000)
-
-input("> Press Something to see first iteration")
-state = env.reset()
-state = state[0]
-done = False
-while not done:
-    action = policy[state]
-    state, reward, done, truncated, info = env.step(action)
-    state = state  
-    env_image = env.render()
-    
-    cv2.imshow("",cv2.cvtColor(env_image, cv2.COLOR_RGB2BGR))
-    cv2.waitKey(110)
-    print(f"State: {state}, Action: {action}, Reward: {reward}, Done: {done}, Truncated: {truncated}")
-
+run()
+Q, policy = q_learning(env, num_episodes=100_000)
+run()
